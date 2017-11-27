@@ -9,10 +9,10 @@ socket.on('connect',function(){ //client is firing an event on connect
     text: 'hey.This is andrew'
   })
 })*/
-  socket.emit('createMessage',{ //this will emit a message to the server
+  /*socket.emit('createMessage',{ //this will emit a message to the server
     from: 'Andrew',
     text:'Yup,that works for me,'
-  });
+  });*/
 });
 
 socket.on('disconnect',function (){    //()=> format function doesn't work well in brosers or mobile other than chrome

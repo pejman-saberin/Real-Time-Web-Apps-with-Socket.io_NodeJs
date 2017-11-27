@@ -16,11 +16,11 @@ io.on('connection', (socket)=>{  //this event is created from the server
   console.log('New user connected');
 
   //socket.emit('newEmail');  //newEmailis the name of the event taken from the front end
-  socket.emit('newEmail',{  //this format is to send to front end an object. Second argument are the passed in json
+  /*socket.emit('newEmail',{  //this format is to send to front end an object. Second argument are the passed in json
     from: 'mike@example.com',
     text: 'hey, what is going on',
     createdAt: 123
-  });
+  });*/
 
   /*
   socket.on('createEmail',(newEmail)=>{
@@ -29,13 +29,18 @@ io.on('connection', (socket)=>{  //this event is created from the server
 
   socket.on ('createMessage', (message)=>{  //this is the listener in the server side.
     console.log('createMessage',message);
-  })
+    io.emit('newMessage',{
+      from:message.from,
+      text:message.text,
+      createdAt: new Date().getTime()
+    }); //Socket.emit-->emits an event to a single connection ,io.emit-->emits an event to every single connection
+  });
 
-  socket.emit('newMessage',{ //this will emit the newMessage event to the browser
+  /*socket.emit('newMessage',{ //this will emit the newMessage event to the browser
       from:'John',
       text: 'See you then',
       createdAt:123123
-  });
+  });*/
 
   socket.on('disconnect',()=>{
     console.log('User was Disconnected');
