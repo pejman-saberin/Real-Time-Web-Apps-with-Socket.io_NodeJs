@@ -27,13 +27,18 @@ io.on('connection', (socket)=>{  //this event is created from the server
     console.log('createEmail', newEmail);
   });*/
 
-  socket.on ('createMessage', (message)=>{  //this is the listener in the server side.
+  socket.on ('createMessage', (message)=>{  //this is the listener in the server side. As soon as 'CreateMessage' is called from the client, io.emit emits a new event to the client
     console.log('createMessage',message);
-    io.emit('newMessage',{
+    /*io.emit('newMessage',{
       from:message.from,
       text:message.text,
       createdAt: new Date().getTime()
-    }); //Socket.emit-->emits an event to a single connection ,io.emit-->emits an event to every single connection
+    }); //Socket.emit-->emits an event to a single connection ,io.emit-->emits an event to every single connection */
+    socket.broadcast.emit('newMessage',{
+      from: message.form,
+      text:message.text,
+      createdAt: new Date().getTime()
+    })  //this is going to send the event to everybody but not this socket
   });
 
   /*socket.emit('newMessage',{ //this will emit the newMessage event to the browser
