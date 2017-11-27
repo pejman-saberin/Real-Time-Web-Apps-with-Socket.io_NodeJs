@@ -15,6 +15,19 @@ app.use(express.static(publicPath));
 io.on('connection', (socket)=>{  //this event is created from the server
   console.log('New user connected');
 
+  //socket.emit from Admin text Welcome to the chat app
+  socket.emit('newMessage',{
+    from: 'Admin',
+    text: 'Welcome to the chat app'
+  })
+
+  //socket.broadcast.emit from Admin text New User joined (let others know user has joined, but the joined user won't see this message)
+  socket.broadcast.emit('newMessage', {
+    from:'Admin',
+    text: 'New user joined',
+    createdAt: new Date().getTime()
+  })
+
   //socket.emit('newEmail');  //newEmailis the name of the event taken from the front end
   /*socket.emit('newEmail',{  //this format is to send to front end an object. Second argument are the passed in json
     from: 'mike@example.com',
@@ -33,12 +46,12 @@ io.on('connection', (socket)=>{  //this event is created from the server
       from:message.from,
       text:message.text,
       createdAt: new Date().getTime()
-    }); //Socket.emit-->emits an event to a single connection ,io.emit-->emits an event to every single connection */
-    socket.broadcast.emit('newMessage',{
+    }); //Socket.emit-->emits an event to a single connection ,io.emit-->emits an event to every single connection
+     socket.broadcast.emit('newMessage',{
       from: message.form,
       text:message.text,
       createdAt: new Date().getTime()
-    })  //this is going to send the event to everybody but not this socket
+    })  //this is going to send the event to everybody but not this socket */
   });
 
   /*socket.emit('newMessage',{ //this will emit the newMessage event to the browser
