@@ -22,10 +22,20 @@ io.on('connection', (socket)=>{  //this event is created from the server
     createdAt: 123
   });
 
+  /*
   socket.on('createEmail',(newEmail)=>{
     console.log('createEmail', newEmail);
-  });
+  });*/
 
+  socket.on ('createMessage', (message)=>{  //this is the listener in the server side.
+    console.log('createMessage',message);
+  })
+
+  socket.emit('newMessage',{ //this will emit the newMessage event to the browser
+      from:'John',
+      text: 'See you then',
+      createdAt:123123
+  });
 
   socket.on('disconnect',()=>{
     console.log('User was Disconnected');
