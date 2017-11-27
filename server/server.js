@@ -15,6 +15,18 @@ app.use(express.static(publicPath));
 io.on('connection', (socket)=>{  //this event is created from the server
   console.log('New user connected');
 
+  //socket.emit('newEmail');  //newEmailis the name of the event taken from the front end
+  socket.emit('newEmail',{  //this format is to send to front end an object. Second argument are the passed in json
+    from: 'mike@example.com',
+    text: 'hey, what is going on',
+    createdAt: 123
+  });
+
+  socket.on('createEmail',(newEmail)=>{
+    console.log('createEmail', newEmail);
+  });
+
+
   socket.on('disconnect',()=>{
     console.log('User was Disconnected');
   });
@@ -24,6 +36,6 @@ io.on('connection', (socket)=>{  //this event is created from the server
 
 
 
-server.listen(port,()=>{  //app.lister is same as ttp.createServer(app) it does this behind the seen
+server.listen(port,()=>{  //app.listen is same as ttp.createServer(app) it does this behind the seen
   console.log(`Server is up on ${port}` );
 });

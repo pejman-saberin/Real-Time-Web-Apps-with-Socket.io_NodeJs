@@ -12,17 +12,7 @@
   </p>
 
   <script src="/socket.io/socket.io.js"> </script>  <!--this is called from the node modules -->
-  <script>
-    //this will be the client code
-    var socket=io();  //this opens up a socket
-    socket.on('connect',()=>{ //client is firing an event on connect
-      console.log('Connected to server');
-    })
-
-    socket.on('disconnect',()=>{
-      console.log('Disconnected from server');
-    })
-  </script>
+  <script src="/js/index.js">  </script>
 
 </body>
 </html>
