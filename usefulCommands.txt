@@ -13,3 +13,7 @@ heroku log  -t  -->  shows why the heroku app is having issues
 =============
 ============================================================================
 npm install socket.io@1.4.8 --save
+
+----------------------------
+scripts for testing:
+ npm install expect@1.20.2 mocha@3.0.2 --save-dev

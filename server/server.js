@@ -3,6 +3,8 @@ const http=require('http');
 const express=require('express');
 const socketIO=require('socket.io');
 
+const {generateMessage}=require('./utils/message');
+
 const publicPath=path.join(__dirname, '../public' );// join takes the partial paths and joins them together
 const port=process.env.PORT || 3000; //herouku needs this
 var app=express();
@@ -16,17 +18,10 @@ io.on('connection', (socket)=>{  //this event is created from the server
   console.log('New user connected');
 
   //socket.emit from Admin text Welcome to the chat app
-  socket.emit('newMessage',{
-    from: 'Admin',
-    text: 'Welcome to the chat app'
-  })
+  socket.emit('newMessage',generateMessage('Admin','Welcome to the chat app'));
 
   //socket.broadcast.emit from Admin text New User joined (let others know user has joined, but the joined user won't see this message)
-  socket.broadcast.emit('newMessage', {
-    from:'Admin',
-    text: 'New user joined',
-    createdAt: new Date().getTime()
-  })
+  socket.broadcast.emit('newMessage',generateMessage('Admin','New user joined'));
 
   //socket.emit('newEmail');  //newEmailis the name of the event taken from the front end
   /*socket.emit('newEmail',{  //this format is to send to front end an object. Second argument are the passed in json
@@ -42,6 +37,7 @@ io.on('connection', (socket)=>{  //this event is created from the server
 
   socket.on ('createMessage', (message)=>{  //this is the listener in the server side. As soon as 'CreateMessage' is called from the client, io.emit emits a new event to the client
     console.log('createMessage',message);
+    io.emit('newMessage',generateMessage(message.from,message.text));
     /*io.emit('newMessage',{
       from:message.from,
       text:message.text,
