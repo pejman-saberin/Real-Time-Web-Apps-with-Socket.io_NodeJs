@@ -1,0 +1,15 @@
+Below comments puts on github and heroku
+
+Git init
+Git status
+Git add .
+Git commit 
+Git push -u  origin  master 
+============
+Heroku create
+Git push heroku master
+heroku open
+heroku log  -t  -->  shows why the heroku app is having issues 
+=============
+============================================================================
+npm install socket.io@1.4.8 --save

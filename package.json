@@ -2,13 +2,13 @@
   "name": "real-time-web-apps-with-socket.io_nodejs",
   "version": "1.0.0",
   "description": "node chat app",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "engines":{
-    "node":"6.9.2"
+  "engines": {
+    "node": "6.9.2"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/pejman-saberin/Real-Time-Web-Apps-with-Socket.io_NodeJs#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "socket.io": "^1.4.8"
   }
 }
