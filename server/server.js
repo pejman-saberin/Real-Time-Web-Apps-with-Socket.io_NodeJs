@@ -40,6 +40,8 @@ io.on('connection', (socket)=>{  //this event is created from the server
     io.emit('newMessage',generateMessage(message.from,message.text));
     //callback(); //this callback will print 'got it', calls the callback function on the frontend
     callback('this is from the server'); //you can send callbacks with a message
+
+
     /*io.emit('newMessage',{
       from:message.from,
       text:message.text,
@@ -50,6 +52,10 @@ io.on('connection', (socket)=>{  //this event is created from the server
       text:message.text,
       createdAt: new Date().getTime()
     })  //this is going to send the event to everybody but not this socket */
+  });
+
+  socket.on('createLocationMessage', (coords)=>{
+    io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude}`));
   });
 
   /*socket.emit('newMessage',{ //this will emit the newMessage event to the browser
