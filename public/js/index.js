@@ -43,6 +43,16 @@ socket.on('newMessage',function(message){ //event listener with name 'newMessage
   console.log('Got it',data);
 }); //function (){} is the callback function for aknowldgment*/
 
+socket.on('newLocationMessage',function(message){
+  var li=jQuery('<li></li>');
+  var a=jQuery('<a target="_blank">My current location</a>');  //_blank opens up a new tag
+
+  li.text(`${message.from}: `);
+  a.attr('href', message.url);
+  li.append(a);
+  jQuery('#messages').append(li);
+});
+
 jQuery('#message-form').on('submit',function(e){
   e.preventDefault(); //normall when w submit the form, the variable that we are sending binds to the URL, this prevents that
 

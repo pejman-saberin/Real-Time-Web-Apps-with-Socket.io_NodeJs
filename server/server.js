@@ -3,7 +3,7 @@ const http=require('http');
 const express=require('express');
 const socketIO=require('socket.io');
 
-const {generateMessage}=require('./utils/message');
+const {generateMessage,generateLocationMessage}=require('./utils/message');
 
 const publicPath=path.join(__dirname, '../public' );// join takes the partial paths and joins them together
 const port=process.env.PORT || 3000; //herouku needs this
@@ -55,7 +55,8 @@ io.on('connection', (socket)=>{  //this event is created from the server
   });
 
   socket.on('createLocationMessage', (coords)=>{
-    io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude}`));
+    //io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude}`));
+    io.emit('newLocationMessage', generateLocationMessage('Admin',  coords.latitude ,  coords.longitude ));
   });
 
   /*socket.emit('newMessage',{ //this will emit the newMessage event to the browser
