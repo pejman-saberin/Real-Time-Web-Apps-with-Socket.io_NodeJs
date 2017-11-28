@@ -29,13 +29,27 @@ socket.on('newEmail', function(email){  //email is the json object that is passe
 })*/
 
 socket.on('newMessage',function(message){ //event listener with name 'newMessage'
-  console.log('newMessage', message)
+  console.log('newMessage', message);
+  var li=jQuery('<li></li>');
+  li.text(`${message.from}: ${message.text}`);
+  jQuery('#messages').append(li);
 })
 
 
-socket.emit('createMessage',{
+/*socket.emit('createMessage',{
   from: 'Frank',
   text: 'Hi'
 },function (data){ //  data is referring to the servers  'this is from the server'  in   callback('this is from the server');
   console.log('Got it',data);
-}); //function (){} is the callback function for aknowldgment
+}); //function (){} is the callback function for aknowldgment*/
+
+jQuery('#message-form').on('submit',function(e){
+  e.preventDefault(); //normall when w submit the form, the variable that we are sending binds to the URL, this prevents that
+
+  socket.emit('createMessage', {
+    from: 'User',
+    text:jQuery('[name=message]').val()
+  },function(data){// once we get the value we call this function
+    console.log(data);
+  });
+});
