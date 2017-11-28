@@ -35,9 +35,11 @@ io.on('connection', (socket)=>{  //this event is created from the server
     console.log('createEmail', newEmail);
   });*/
 
-  socket.on ('createMessage', (message)=>{  //this is the listener in the server side. As soon as 'CreateMessage' is called from the client, io.emit emits a new event to the client
+  socket.on ('createMessage', (message, callback)=>{  //(now adding callback to send to client comformation)this is the listener in the server side. As soon as 'CreateMessage' is called from the client, io.emit emits a new event to the client
     console.log('createMessage',message);
     io.emit('newMessage',generateMessage(message.from,message.text));
+    //callback(); //this callback will print 'got it', calls the callback function on the frontend
+    callback('this is from the server'); //you can send callbacks with a message
     /*io.emit('newMessage',{
       from:message.from,
       text:message.text,

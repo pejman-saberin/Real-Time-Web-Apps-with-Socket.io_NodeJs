@@ -31,3 +31,11 @@ socket.on('newEmail', function(email){  //email is the json object that is passe
 socket.on('newMessage',function(message){ //event listener with name 'newMessage'
   console.log('newMessage', message)
 })
+
+
+socket.emit('createMessage',{
+  from: 'Frank',
+  text: 'Hi'
+},function (data){ //  data is referring to the servers  'this is from the server'  in   callback('this is from the server');
+  console.log('Got it',data);
+}); //function (){} is the callback function for aknowldgment
