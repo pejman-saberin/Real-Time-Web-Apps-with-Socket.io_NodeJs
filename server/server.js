@@ -39,7 +39,7 @@ io.on('connection', (socket)=>{  //this event is created from the server
     console.log('createMessage',message);
     io.emit('newMessage',generateMessage(message.from,message.text));
     //callback(); //this callback will print 'got it', calls the callback function on the frontend
-    callback('this is from the server'); //you can send callbacks with a message
+    callback(0); //you can send callbacks with a message.. 0 means with don't need to pass any data we just need to know when the server responded
 
 
     /*io.emit('newMessage',{

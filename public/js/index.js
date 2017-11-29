@@ -56,11 +56,13 @@ socket.on('newLocationMessage',function(message){
 jQuery('#message-form').on('submit',function(e){
   e.preventDefault(); //normall when w submit the form, the variable that we are sending binds to the URL, this prevents that
 
+  var messageTextbox=jQuery('[name=message]');
   socket.emit('createMessage', {
     from: 'User',
-    text:jQuery('[name=message]').val()
+    text:messageTextbox.val()
   },function(data){// once we get the value we call this function
-    console.log(data);
+    //console.log(data);
+    messageTextbox.val('')
   });
 });
 
@@ -69,13 +71,17 @@ locationButton.on('click',function(){
   if(!navigator.geolocation){ //didn't have to install anything for this. This object is available in the browser
     return alert('Geolocation not support by your browser.')
   }
+
+  locationButton.attr('disabled','disabled').text('Sending location...');
   navigator.geolocation.getCurrentPosition(function(position) {
+    locationButton.removeAttr('disabled').text('Send location.');
     socket.emit('createLocationMessage',{
       latitude:position.coords.latitude,
       longitude:position.coords.longitude
     });
     console.log(position);
   },function()  {//this function executes if something goes wrong
+      locationButton.attr('disabled','disabled').text('Send location...');
     alert('Unable to fetch location.');
   });
 });
