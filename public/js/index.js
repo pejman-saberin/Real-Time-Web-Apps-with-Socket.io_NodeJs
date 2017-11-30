@@ -29,9 +29,10 @@ socket.on('newEmail', function(email){  //email is the json object that is passe
 })*/
 
 socket.on('newMessage',function(message){ //event listener with name 'newMessage'
+  var formattedTime=moment(message.createdAt).format('h:mm a');
   console.log('newMessage', message);
   var li=jQuery('<li></li>');
-  li.text(`${message.from}: ${message.text}`);
+  li.text(`${message.from} ${formattedTime}: ${message.text}`);
   jQuery('#messages').append(li);
 })
 
@@ -44,10 +45,11 @@ socket.on('newMessage',function(message){ //event listener with name 'newMessage
 }); //function (){} is the callback function for aknowldgment*/
 
 socket.on('newLocationMessage',function(message){
+  var formattedTime=moment(message.createdAt).format('h:mm a');
   var li=jQuery('<li></li>');
   var a=jQuery('<a target="_blank">My current location</a>');  //_blank opens up a new tag
 
-  li.text(`${message.from}: `);
+  li.text(`${message.from}: ${formattedTime} `);
   a.attr('href', message.url);
   li.append(a);
   jQuery('#messages').append(li);
