@@ -20,7 +20,7 @@ scripts for testing:
 To find specific process on command line use below command here 8080 is port used by process 
 
 
-netstat -ano | findstr 8080
+netstat -ano | findstr 3000
 
 to kill process use below command here 21424 is process id
 
