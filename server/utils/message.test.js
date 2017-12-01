@@ -1,6 +1,8 @@
 var expect =require ('expect');
 var {generateMessage,generateLocationMessage}=require('./message');
 
+//expect documentation  https://github.com/mjackson/expect 
+
 describe ('generateMessage',()=>{
   it ('should generate correct message object',()=>{
     //store res in variable

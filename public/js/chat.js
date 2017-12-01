@@ -19,6 +19,15 @@ function scrollToBottom(){
 }
 
 socket.on('connect',function(){ //client is firing an event on connect
+  var params=jQuery.deparam(window.location.search); //location is globa obehect that contains the info such as roomname and display name in the URL http://localhost:3000/chat.html?name=Display+Name&room=Room+Name and this third party library deparam extract the info
+  socket.emit('join',params,function(err){
+    if(err){
+      alert(err);
+      window.location.href='/';
+    }else{
+      console.log('No error');
+    }
+  });
   console.log('Connected to server');
 
   /*

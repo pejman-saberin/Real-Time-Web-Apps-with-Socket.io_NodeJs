@@ -4,6 +4,7 @@ const express=require('express');
 const socketIO=require('socket.io');
 
 const {generateMessage,generateLocationMessage}=require('./utils/message');
+const {isRealString}=require("./utils/validation")
 
 const publicPath=path.join(__dirname, '../public' );// join takes the partial paths and joins them together
 const port=process.env.PORT || 3000; //herouku needs this
@@ -22,6 +23,13 @@ io.on('connection', (socket)=>{  //this event is created from the server
 
   //socket.broadcast.emit from Admin text New User joined (let others know user has joined, but the joined user won't see this message)
   socket.broadcast.emit('newMessage',generateMessage('Admin','New user joined'));
+
+  socket.on('join',(params,callback)=>{
+    if (!isRealString(params.name)|| !isRealString(params.room)){       
+      callback('Name and room name are reqired');
+    }
+    callback(); //if everything is good we do not need to pass anything
+  });
 
   //socket.emit('newEmail');  //newEmailis the name of the event taken from the front end
   /*socket.emit('newEmail',{  //this format is to send to front end an object. Second argument are the passed in json
