@@ -18,16 +18,27 @@ app.use(express.static(publicPath));
 io.on('connection', (socket)=>{  //this event is created from the server
   console.log('New user connected');
 
-  //socket.emit from Admin text Welcome to the chat app
-  socket.emit('newMessage',generateMessage('Admin','Welcome to the chat app'));
-
-  //socket.broadcast.emit from Admin text New User joined (let others know user has joined, but the joined user won't see this message)
-  socket.broadcast.emit('newMessage',generateMessage('Admin','New user joined'));
 
   socket.on('join',(params,callback)=>{
-    if (!isRealString(params.name)|| !isRealString(params.room)){       
+    if (!isRealString(params.name)|| !isRealString(params.room)){
       callback('Name and room name are reqired');
     }
+
+    socket.join(params.room); //this directs the user to join the room they wanted
+    //socket.leave(params.room);//when user leaves
+
+    //io.emit  --> emits to every connected users
+    //io.emit->io-to(params.room).emit; //this is going to emit to everyone connted to a room
+
+    //scoket.broadcast.emit -->emits to every connected users except the user who joins
+    //scoket.broadcast.emit --> //scoket.broadcast.to(params.name).emit  -->this is used to specific rooms
+
+    //socket.emit --> emits the event to one user
+    //socket.emit from Admin text Welcome to the chat app
+    socket.emit('newMessage',generateMessage('Admin','Welcome to the chat app'));
+    //socket.broadcast.emit from Admin text New User joined (let others know user has joined, but the joined user won't see this message)
+    socket.broadcast.to(params.room).emit('newMessage',generateMessage('Admin', `${params.name} has joined`));
+
     callback(); //if everything is good we do not need to pass anything
   });
 
